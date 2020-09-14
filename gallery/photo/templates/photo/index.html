@@ -1,0 +1,34 @@
+{% extends 'photo/base.html' %}
+
+{% load photo_tags %}
+
+{% block body %}
+	{% if images %}
+		{% for image in images %}
+			{% with image|split:'.' as strs %}
+				{% with strs|length as str_arr_len %}
+					{% with str_arr_len|add:'-1' as ext_idx %}
+						{% if strs|get_by_index:ext_idx == 'jpg' %}
+							<a href="{{ MEDIA_URL }}images/{{ image }}">
+								<img src="{{ MEDIA_URL }}images/thumbs/{{ image }}" alt="{{ image }}">
+							</a>
+						{% endif %}
+					{% endwith %}
+				{% endwith %}
+			{% endwith %}
+			{% if forloop.counter|divisibleby:4 %}
+				<div class="clear"></div>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		<p>No image available.</p>
+	{% endif %}
+{% endblock body %}
+
+{% block extra_js %}
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('.gallery a').simpleLightbox();
+		});
+	</script>
+{% endblock extra_js %}

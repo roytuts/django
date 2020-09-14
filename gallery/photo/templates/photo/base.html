@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Django - Photo Gallery</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'photo/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'photo/css/simplelightbox.min.css' %}">
+
+        <!-- JAVASCRIPT -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'photo/js/simple-lightbox.min.js' %}"></script>
+    </head>
+    <body>
+	    <div class='container'>
+		    <div class="gallery">
+                {% block body %}{% endblock body %}
+		    </div>
+		</div>
+        {% block extra_js %}{% endblock extra_js %}
+    </body>
+</html>
