@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Django - Multiple Files Upload</title>
+    </head>
+    <body>
+		<div style="width: 500px; margin: auto;">
+			<fieldset name="Multiple Files Upload">
+				{% if msg %} {% autoescape off %} {{ msg }} {% endautoescape %} {% endif %}
+				<form method="post" action="/multiple" enctype="multipart/form-data">
+					{% csrf_token %}
+					<dl>
+						<p>
+							<label>Browse and select one or more files</label>&nbsp;&nbsp;
+							<input type="file" name="files" autocomplete="off" required multiple>
+						</p>
+					</dl>
+					<p>
+						<input type="submit" value="Upload">
+					</p>
+				</form>
+			</fieldset>
+		</div>
+    </body>
+</html>
