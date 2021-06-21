@@ -1,0 +1,1 @@
+You can read tutorial https://roytuts.com/how-to-upload-files-using-django-jquery-and-ajax/

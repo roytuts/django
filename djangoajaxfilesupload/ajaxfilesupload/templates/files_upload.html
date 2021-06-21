@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Django AJAX Files Upload</title>
+    </head>
+    <body>
+		<div style="width: 500px; margin: auto;">
+			<fieldset name="Multiple Files Upload">
+				{% if msg %} {% autoescape off %} {{ msg }} {% endautoescape %} {% endif %}
+				<div id="msg"></div>
+				<p>
+					{% csrf_token %}
+					<input type="file" id="multiFiles" name="files[]" multiple="multiple"/>
+					<button id="upload">Upload</button>
+				</p>
+			</fieldset>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function (e) {
+				$('#upload').on('click', function () {
+					var form_data = new FormData();
+					var ins = document.getElementById('multiFiles').files.length;
+					
+					if(ins == 0) {
+						$('#msg').html('<span style="color:red">Select at least one file</span>');
+						return;
+					}
+					
+					for (var x = 0; x < ins; x++) {
+						form_data.append("files[]", document.getElementById('multiFiles').files[x]);
+					}
+					
+					csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+					
+					//console.log(csrf_token);
+					
+					form_data.append("csrfmiddlewaretoken", csrf_token);
+					
+					$.ajax({
+						url: 'upload', // point to server-side URL
+						dataType: 'json', // what to expect back from server
+						cache: false,
+						contentType: false,
+						processData: false,
+						//data: {'data': form_data, 'csrfmiddlewaretoken': csrf_token},
+						data: form_data,
+						type: 'post',
+						success: function (response) { // display success response
+							$('#msg').html(response.msg);
+						},
+						error: function (response) {
+							$('#msg').html(response.message); // display error response
+						}
+					});
+				});
+			});
+		</script>
+    </body>
+</html>
