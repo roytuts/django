@@ -1,0 +1,1 @@
+You can go through the tutorial https://roytuts.com/upload-and-play-video-using-django/
